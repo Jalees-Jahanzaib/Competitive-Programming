@@ -26,7 +26,6 @@ struct trie {
         for(int i = 0; i < word.size(); i++) {
             int id = word[i]-'0';
             if(cur->next[id] == NULL) cur->next[id] = new trie(word[i]), cur->open++;
-            //cout << cur->c << " open = " << cur->open << " word = " << cur->word << endl;
             cur = cur->next[id];
         }
         cur->word++;

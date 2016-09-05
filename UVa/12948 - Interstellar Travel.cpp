@@ -41,7 +41,7 @@ void bellman(int from, int n) {
         for(int u = 0; u < p; u++) {
             for(int k = 0; k < G[u].size(); k++) {
                 Node v = G[u][k];
-                if(dp[i][v.to] = min() > dp[i - 1][u].first + v.cost) {
+                if(dp[i][v.to].first > dp[i - 1][u].first + v.cost) {
                     dp[i][v.to].first = dp[i - 1][u].first + v.cost;
                     dp[i][v.to].second = dp[i - 1][u].second + v.time;
                 }
@@ -55,7 +55,7 @@ void bellman(int from, int n) {
 
 int main() {
     ios_base::sync_with_stdio(0);
-    cin.tie(0);/**/
+    //cin.tie(0);/**/
     //freopen("input.txt", "r", stdin)
     bool first = true;
     while(cin >> p >> f >> q) {
