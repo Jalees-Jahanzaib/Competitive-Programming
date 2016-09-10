@@ -29,7 +29,6 @@ ll go(int month, ll workers) {
     }
 
     return r = r + workers*salary;
-
 }
 
 int cases;
