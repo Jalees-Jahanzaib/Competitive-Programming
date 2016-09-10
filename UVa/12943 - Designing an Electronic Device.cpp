@@ -1,3 +1,4 @@
+//0.030 seconds
 #include<bits/stdc++.h>
 #define num first
 #define den second
@@ -8,7 +9,7 @@ typedef pair<ll, ll> ii;
 
 ii dp[10][1010];
 
-bool cmp(ii a, ii b) {
+inline bool cmp(ii a, ii b) {
     return (double)(a.num)*(double)(b.den) >= (double)(b.num)*(double)(a.den);
 }
 
