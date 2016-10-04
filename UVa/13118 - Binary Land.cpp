@@ -26,7 +26,7 @@ bool check(int x, int y) {
 int bfs(int a, int b, int c, int d, int lx, int ly) {
     queue<State> q;
     q.push(State(a, b, c, d, 0));
-    seen[a][b][c][d] = label;
+    seen[a][b][c][d] = seen[c][d][a][b] = label;
     while(!q.empty()) {
         State cur = q.front(); q.pop();
         if(cur.mx == cur.gx && cur.my == cur.gy && cur.mx == lx && cur.my == ly)
@@ -47,7 +47,7 @@ int bfs(int a, int b, int c, int d, int lx, int ly) {
             }
 
             if(seen[nmx][nmy][ngx][ngy] != label) {
-                seen[nmx][nmy][ngx][ngy] = label;
+                seen[nmx][nmy][ngx][ngy] = seen[ngx][ngy][nmx][nmy] = label;
                 q.push(State(nmx, nmy, ngx, ngy, cur.cost + 1));
             }
         }
