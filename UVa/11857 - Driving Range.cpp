@@ -11,15 +11,15 @@
 #define PB push_back
 #define MAX 1000000
 using namespace std;
- 
+
 struct Edge {
 	int from, to, cost;
- 
+
 	bool operator < (const Edge & e) const {
-		return cost < e.cost;	
+		return cost < e.cost;
 	}
 };
- 
+
 int N, M, father[MAX], range[MAX];
 vector<Edge> edges;
 
@@ -30,18 +30,18 @@ void init() {
 		range[i] = 0;
 	}
 }
- 
+
 int find(int x) {
 	if(x == father[x]) return x;
 	return father[x] = find(father[x]);
 }
- 
+
 void merge(int a, int b) {
 	int A = find(a);
 	int B = find(b);
 	father[A] = B;
 }
- 
+
 void kruskal() {
 	sort(edges.begin(), edges.end());
 	Edge e;
@@ -60,10 +60,8 @@ void kruskal() {
 	else {
 		cout << "IMPOSSIBLE\n";
 	}
- 
- 
 }
- 
+
 int main() {
 	while(cin >> N >> M && (M != 0 || N != 0)) {
 		init();

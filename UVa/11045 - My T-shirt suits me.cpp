@@ -132,7 +132,6 @@ int main() {
 
         if(net.maxFlow(SOURCE, SINK) == volunteers) cout << "YES\n";
         else cout << "NO\n";
-
     }
 
 }
