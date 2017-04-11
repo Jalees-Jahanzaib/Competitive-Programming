@@ -50,6 +50,7 @@ int main() {
 
     while(cin >> p >> t) {
         p = change(p); t = change(t);
+        cout << p << " " << t << endl;
         cout << kmp() << "\n";
     }
 }
