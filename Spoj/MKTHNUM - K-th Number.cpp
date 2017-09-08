@@ -14,46 +14,36 @@ int arr[MAX];
 
 struct segtree{
     segtree *left, *right;
-    int start, end, val;
-    segtree(segtree *left, segtree *right, int start, int end, int val) {
+    int val;
+    segtree(segtree *left, segtree *right, int val) {
         this->left = left;
         this->right = right;
         this->val = val;
-        this->start = start;
-        this->end = end;
     }
-    segtree(int start, int end) : start(start), end(end) {
-        if(start == end) {
-            val = 0;
-            left = right = NULL;
-        } else {
-            int mid = (start+end)/2;
-            left = new segtree(start, mid);
-            right = new segtree(mid+1, end);
-            val = left->val + right->val;
-        }
+    segtree() : left(this), right(this), val(0) {
     }
 
-    segtree* update(int pos) {
+    segtree* update(int pos, int start, int end) {
         if(start == end)
-            return new segtree(NULL, NULL, start, end, val+1);
+            return new segtree(NULL, NULL, val+1);
         int mid = (start+end)/2;
         if(pos <= mid)
-            return new segtree( left->update(pos), right, start, end, val+1);
-        return new segtree( left, right->update(pos), start, end, val+1);
+            return new segtree( left->update(pos, start, mid), right, val+1);
+        return new segtree( left, right->update(pos, mid+1, end), val+1);
     }
 };
 
-int query(segtree *a, segtree *b, int k) {
-    if(a->start == a->end) {
-        return a->start;
+int query(segtree *a, segtree *b, int k, int start, int end) {
+    if(start == end) {
+        return start;
     }
 
     int cnt = b->left->val - a->left->val;
-    if(cnt >= k) { /// izquierda
-        return query(a->left, b->left, k);
+    int mid = (start+end)/2;
+    if(cnt >= k) {
+        return query(a->left, b->left, k, start, mid);
     }
-    return query(a->right, b->right, k - cnt);
+    return query(a->right, b->right, k - cnt, mid+1, end);
 }
 
 segtree *root[MAX];
@@ -79,16 +69,13 @@ int main() {
         v[i] = lower_bound(c.begin(), c.end(), v[i]) - c.begin();
     }
 
-    root[0] = new segtree(0, n-1);
+    root[0] = new segtree();
     for(int i = 1; i <= n; i++) {
-        root[i] = root[i-1]->update(v[i-1]);
+        root[i] = root[i-1]->update(v[i-1], 0, n-1);
     }
-
     while(m--) {
         int a, b, k; cin >> a >> b >> k;
-        cout << c[query(root[a-1], root[b], k)] << "\n";
-
-
+        cout << c[query(root[a-1], root[b], k, 0, n-1)] << "\n";
     }
 
 

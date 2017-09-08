@@ -91,6 +91,12 @@ struct Hopcroft_Karp {
 
 int main() {
     ios_base::sync_with_stdio(0);
+
+    #ifdef FSOCIETY
+        freopen("input.txt", "r", stdin);
+        freopen("output.txt", "w", stdout);
+    #endif // FSOCIETY
+
     int t; cin >> t;
     while(t--) {
         int n; cin >> n;
